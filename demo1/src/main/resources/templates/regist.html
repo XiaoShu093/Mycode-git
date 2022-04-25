@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<style>
+
+    body {
+        overflow: hidden;
+    }
+
+    * {
+        margin: 0;
+        font-family: "Microsoft Yahei";
+        color: #666;
+    }
+
+    div {
+        margin: auto;
+        margin-bottom: 10px;
+        margin-top: 10px;
+
+    }
+
+    .book_info div {
+        height: 10px;
+        width: 300px;
+        text-align: left;
+    }
+
+
+    .logo_img {
+        float: left;
+    }
+
+    #header div a {
+        text-decoration: none;
+        font-size: 20px;
+    }
+
+    #header div {
+        float: right;
+        margin-top: 55px;
+    }
+
+    .book_cond input {
+        width: 50px;
+        text-align: center;
+    }
+
+
+    /*登录页面CSS样式  */
+
+    #login_header {
+        height: 82px;
+        width: 1200px;
+    }
+
+    .login_banner {
+        height: 566px;
+        background-color: #45567d;
+    }
+
+    .login_form {
+        height: 310px;
+        width: 406px;
+        float: right;
+        margin-right: 50px;
+        margin-top: 50px;
+        background-color: #fff;
+    }
+
+    #content {
+        height: 475px;
+        width: 1200px;
+    }
+
+    .login_box {
+        margin: 20px;
+        height: 260px;
+        width: 366px;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+
+    .msg_cont b {
+        background: url("../static/img/99.png") no-repeat scroll -104px -22px rgba(0, 0, 0, 0);
+        display: block;
+        height: 17px;
+        left: 10px;
+        margin-top: -8px;
+        overflow: hidden;
+        position: absolute;
+        top: 50%;
+        width: 16px;
+    }
+
+    .form .itxt {
+        border: 0 none;
+        float: none;
+        font-family: "宋体";
+        font-size: 14px;
+        height: 18px;
+        line-height: 18px;
+        overflow: hidden;
+        padding: 10px 0 10px 10px;
+        width: 220px;
+        border: 1px #e3e3e3 solid;
+    }
+
+    #sub_btn {
+        background-color: #39987c;
+        border: none;
+        color: #fff;
+        width: 360px;
+        height: 40px;
+    }
+
+    #l_content {
+        float: left;
+        margin-top: 150px;
+        margin-left: 300px;
+    }
+
+    #l_content span {
+        font-size: 60px;
+        color: white;
+    }
+
+    .tit h1 {
+        float: left;
+        margin-top: 5px;
+    }
+
+    .tit a {
+        float: right;
+        margin-left: 10px;
+        margin-top: 10px;
+        color: red;
+        text-decoration: none;
+    }
+
+    .tit .errorMsg {
+        float: right;
+        margin-left: 10px;
+        margin-top: 10px;
+        color: red;
+    }
+
+    .tit {
+        height: 30px;
+    }
+
+    /*购物车*/
+    #main table {
+        margin: auto;
+        margin-top: 80px;
+        border-collapse: collapse;
+    }
+
+    #main table td {
+        width: 120px;
+        text-align: center;
+        border-bottom: 1px #e3e3e3 solid;
+        padding: 10px;
+    }
+
+    .cart_span span {
+        color: red;
+        font-size: 20px;
+        margin: 10px;
+    }
+
+    .cart_span a, td a {
+        font-size: 20px;
+        color: blue;
+    }
+    .tit .errorMsg {
+        float: right;
+        margin-left: 10px;
+        margin-top: 10px;
+        color: red;
+    }
+
+    #header div span {
+        margin: 10px;
+    }
+
+    #header div .um_span {
+        color: red;
+        font-size: 25px;
+        margin: 10px;
+    }
+
+    #header div a {
+        color: blue;
+    }
+
+</style>
+<head>
+    <meta charset="UTF-8">
+    <title>注册页面</title>
+
+    <script type="text/javascript" src="../static/lib/jquery-1.9.1.js"></script>
+    <script type="text/javascript" th:inline="javascript">
+        let msg = [[${msg}]];
+        if(msg != null){
+            alert(msg);
+        }
+            msg=null;
+    </script>
+    <script type="text/javascript">
+        // 页面加载完成之后
+        $(function () {
+            // 给注册绑定单击事件
+            $("#sub_btn").click(function () {
+
+                // 验证用户名：必须由字母，数字下划线组成，并且长度为5到12位
+                //1 获取用户名输入框里的内容
+                var usernameText = $("#username").val();
+                //2 创建正则表达式对象
+                var usernamePatt = /^\w{5,12}$/;
+                //3 使用test方法验证
+                if (!usernamePatt.test(usernameText)) {
+                    //4 提示用户结果
+                    $("span.errorMsg").text("用户名不合法！");
+
+                    return false;
+                }
+
+                // 验证密码：必须由字母，数字下划线组成，并且长度为5到12位
+                //1 获取用户名输入框里的内容
+                var passwordText = $("#password").val();
+                //2 创建正则表达式对象
+                var passwordPatt = /^\w{5,12}$/;
+                //3 使用test方法验证
+                if (!passwordPatt.test(passwordText)) {
+                    //4 提示用户结果
+                    $("span.errorMsg").text("密码不合法！");
+
+                    return false;
+                }
+
+                // 验证确认密码：和密码相同
+                //1 获取确认密码内容
+                var repwdText = $("#repwd").val();
+                //2 和密码相比较
+                if (repwdText != passwordText) {
+                    //3 提示用户
+                    $("span.errorMsg").text("确认密码和密码不一致！");
+
+                    return false;
+                }
+
+                // 邮箱验证：xxxxx@xxx.com
+                //1 获取邮箱里的内容
+                var emailText = $("#email").val();
+                //2 创建正则表达式对象
+                var emailPatt = /^[a-z\d]+(\.[a-z\d]+)*@([\da-z](-[\da-z])?)+(\.{1,2}[a-z]+)+$/;
+                //3 使用test方法验证是否合法
+                if (!emailPatt.test(emailText)) {
+                    //4 提示用户
+                    $("span.errorMsg").text("邮箱格式不合法！");
+
+                    return false;
+                }
+
+                // 验证码：现在只需要验证用户已输入。因为还没讲到服务器。验证码生成。
+                var codeText = $("#code").val();
+
+                //去掉验证码前后空格
+                // alert("去空格前：["+codeText+"]")
+                codeText = $.trim(codeText);
+                // alert("去空格后：["+codeText+"]")
+
+                if (codeText == null || codeText == "") {
+                    //4 提示用户
+                    $("span.errorMsg").text("验证码不能为空！");
+
+                    return false;
+                }
+
+                // 去掉错误信息
+                $("span.errorMsg").text("");
+
+            });
+
+        });
+
+    </script>
+    <style type="text/css">
+        .login_form {
+            height: 420px;
+            margin-top: 25px;
+        }
+
+    </style>
+</head>
+<body>
+<div id="login_header">
+    <img class="logo_img" alt="" src="../static/img/66.gif">
+</div>
+
+<div class="login_banner">
+
+    <div id="l_content">
+        <span class="login_word">欢迎注册</span>
+    </div>
+
+    <div id="content">
+        <div class="login_form">
+            <div class="login_box">
+                <div class="tit">
+                    <h1>注册界面</h1>
+                    <span class="errorMsg"></span>
+                </div>
+                <div class="form">
+                    <form action="/registPage" method="post">
+                        <label>用户名称：</label>
+                        <input class="itxt" type="text" placeholder="请输入用户名"
+                               value=""
+                               autocomplete="off" tabindex="1" name="username" id="username"/>
+                        <br/>
+                        <br/>
+                        <label>用户密码：</label>
+                        <input class="itxt" type="password" placeholder="请输入密码"
+                               value=""
+                               autocomplete="off" tabindex="1" name="password" id="password"/>
+                        <br/>
+                        <br/>
+                        <label>确认密码：</label>
+                        <input class="itxt" type="password" placeholder="确认密码"
+                               value=""
+                               autocomplete="off" tabindex="1" name="repwd" id="repwd"/>
+                        <br/>
+                        <br/>
+                        <label>电子邮件：</label>
+                        <input class="itxt" type="text" placeholder="请输入邮箱地址"
+                               value=""
+                               autocomplete="off" tabindex="1" name="email" id="email"/>
+                        <br/>
+                        <br/>
+                        <label>验证码：</label>
+                        <input class="itxt" type="text" name="code" style="width: 150px;" id="code" value=""/>
+                        <img alt="" src="../static/img/55.bmp" style="float: right; margin-right: 40px">
+                        <br/>
+                        <br/>
+                        <input type="submit" value="注册" id="sub_btn"/>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<footer style="text-align: center;">
+    <span>
+				推荐系统.Copyright &copy;2022
+    </span>
+</footer>
+</html>

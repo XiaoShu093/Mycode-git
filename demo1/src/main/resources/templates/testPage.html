@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="zh-CN" >
+<head>
+    <title>职业测评</title>
+    <meta charset="UTF-8" />
+
+    <link rel="stylesheet" href="//t1.chei.com.cn/ncss/jyxw/css/bootstrap.min2.css" />
+    <link rel="stylesheet" href="https://t1.chei.com.cn/common/vue-plugins/iview4.6.1/css/iview.css" />
+    <script src="//t1.chei.com.cn/ncss/jyxw/js/jquery-1.11.1.min.js"></script>
+    <style>
+        [v-cloak] {
+            display: none !important;
+        }
+
+        .contain-bl {
+            background-color: #fff;
+        }
+
+        .container {
+            width: 1170px;
+            margin: 0 auto;
+            padding: 0;
+        }
+
+        .tj-ul li {
+            margin-left: 13px;
+            width: 283px;
+        }
+
+        .tj-ul li:nth-child(1) {
+            margin-left: 0;
+        }
+
+        .item-title {
+            text-align: center;
+            font-size: 24px;
+            line-height: 62px;
+            margin-top: 22px;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .img-bl img {
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .img-bl a {
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .img-bl .xz-zhiycp-lb-text {
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            color: #333;
+            line-height: 38px;
+        }
+
+        .zycp-ul li {
+            float: left;
+            margin-bottom: 32px;
+        }
+
+        .zycp-ul li:nth-child(2n) {
+            float: right;
+        }
+
+        .zycp-ul li .list-item-img {
+            width: 224px;
+            height: 156px;
+            float: left;
+        }
+
+        .zycp-ul li .list-item-img img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .list-item-content {
+            width: 280px;
+            float: left;
+            margin-left: 25px;
+        }
+
+        .list-item-content .content-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+            line-height: 30px;
+            margin-bottom: 10px;
+        }
+
+        .list-item-content .content-des {
+            font-size: 14px;
+            color: #888;
+            line-height: 24px;
+            display: -webkit-box;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+        }
+
+        .btn-primary {
+            background-color: #0168d1;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #065fb7;
+        }
+
+        .btn:focus,
+        .btn:active:focus,
+        .btn.active:focus {
+            outline: none;
+        }
+
+        .list-item-btn {
+            margin-top: 12px;
+        }
+        .zycp-bl {
+            width: 1170px;
+        }
+    </style>
+</head>
+<body>
+
+<style type="text/css">
+    body {
+        background-color: #f5f7fa;
+        font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, 微软雅黑, Arial, sans-serif;
+        padding-bottom: 150px;
+        position: relative;
+        min-width: 1170px;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    li {
+        list-style: none;
+    }
+
+    header {
+        margin-bottom: 0 !important;
+        background: #fff;
+    }
+    header img{
+        height: auto;
+    }
+    header a:hover {
+        text-decoration: underline;
+    }
+
+    header .navbar-top {
+        height: 110px;
+        line-height: 110px;
+        background: #fff;
+        width: 1170px;
+        margin: 0 auto;
+    }
+
+    header .navbar-top .navtop-ght {
+        float: right;
+    }
+    header .navbar-top .logo-bl {
+        font-size: 36px;
+        color: #273b55;
+        font-weight: 700;
+        height: 110px;
+        display: inline-block;
+    }
+    .headernav-bl .navbar {
+        width: 1170px;
+        min-height: 30px;
+        margin: 0 auto;
+        border: none;
+        border-radius: 0
+    }
+
+    .headernav-bl .navbar .nav li a {
+        padding: 0 15px;
+        line-height: 30px;
+        color: #ccc
+    }
+
+    .headernav-bl .navbar .navbar-right li {
+        position: relative;
+        width: auto;
+        text-align: center;
+        margin-right: 15px !important;
+        padding: 0;
+        font-size: 14px;
+    }
+    .headernav-bl .navbar .navbar-right li:last-child {
+        margin-right: 7px !important;
+    }
+
+    .headernav-bl .navbar .navbar-right li a {
+        padding: 0;
+        line-height: 30px;
+        color: #ccc
+    }
+    .headernav-bl .navbar .navbar-right li a:hover, .headernav-bl .navbar .navbar-right li a:focus{
+        background-color: #fff;
+    }
+    .headernav-bl .navbar .navbar-right li a img {
+        width: 24px;
+        height: 24px;
+        background: #fff
+    }
+
+    .headernav-bl .navbar .navbar-right li .new:before {
+        font-size: 16px
+    }
+
+    .headernav-bl .navbar .navbar-right li .new:after {
+        content: "\e641";
+        position: absolute;
+        top: -6px;
+        left: 29px;
+        font-size: 1px;
+        color: #de3131
+    }
+
+    .headernav-bl .navbar .navbar-right .link ul {
+        display: none;
+        background: #505051
+    }
+
+    .headernav-bl .navbar .navbar-right .link:hover ul {
+        display: block;
+        position: absolute;
+        z-index: 9999;
+        left: -9px
+    }
+
+    .headernav-bl .navbar .navbar-right .link:hover ul li {
+        padding-left: 17px;
+        text-align: left;
+        font-size: 14px;
+        width: 88px;
+        margin: 0
+    }
+
+    .headernav-bl .navbar .navbar-right .link:hover ul li:hover {
+        background: #666
+    }
+
+    .headernav-bl .navbar .navbar-right .link:hover ul li .number {
+        margin-right: 5px;
+        color: #de3131
+    }
+
+    .headernav-bl .navbar .navbar-right .link:hover ul li a:hover {
+        color: #fff
+    }
+
+    .headernav-bl .navbar .navbar-right .link #collection {
+        left: -29px !important
+    }
+
+    .headernav-bl .navbar .navbar-right .link #collection li {
+        padding-left: 0;
+        text-align: center
+    }
+    .navbar-top .logo-bl .logo-img {
+        width: 86px;
+        height: 110px;
+        background-image: url(https://t1.chei.com.cn/ncss/jyxw/images/logonew1x.png);
+        background-image: -webkit-image-set(url(https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimage.uczzd.cn%2F8688875359814586477.jpeg%3Fid%3D0%26from%3Dexport&refer=http%3A%2F%2Fimage.uczzd.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1651305990&t=f2bccdaf9dd7f572efb812b209c1f317) 1x,url(https://gimg2.baidu.com/image_search/src=http%3A%2F%2F520qinggan.oss-cn-hangzhou.aliyuncs.com%2Farticle%2Fdetails%2F1530865938708.jpg&refer=http%3A%2F%2F520qinggan.oss-cn-hangzhou.aliyuncs.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1651306188&t=639350df70e544f5de3d12136fa48bed) 4.2x);
+        background-repeat: no-repeat;
+        background-position: 0 50%;
+        overflow: hidden;
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 18px;
+    }
+    header .navtop-ght .nolog-a {
+        margin-left: 11px;
+        color: #333;
+        font-size: 14px;
+    }
+    header .navtop-ght .nolog-a:last-child {
+        margin-right: 7px;
+    }
+    .headernav-bl .navbar .navbar-right li a {
+        color: #333;
+    }
+    .nav-bl {
+        height: 80px;
+        background: #0168d1;
+    }
+
+    .headernav-bl .navbar .navtop-ght .nav a {
+        color: #333;
+        height: 110px;
+        line-height: 110px;
+    }
+
+    .navbar-top img {
+        width: auto;
+    }
+
+    header .nav-wrapper {
+        width: 1170px;
+        margin: 0 auto;
+    }
+    header .nav-index-list {
+        padding: 0;
+    }
+    header .nav-index-list li {
+        float: left;
+        color: #fff;
+    }
+
+    header .nav-index-list .nav-th {
+        float: left;
+        font-size: 16px;
+        font-weight: 700;
+    }
+
+    header .nav-index-list .nav-con {
+        float: left;
+    }
+
+    .nav-index-list .nav-fast-li {
+        position: relative;
+    }
+
+    .nav-index-list .nav-th {
+        padding: 0 37px;
+        height: 80px;
+        line-height: 80px;
+    }
+
+    .nav-index-list .nav-th a {
+        color: #fff;
+    }
+
+    .nav-index-list .nav-fast-li::after {
+        content: "";
+        display: inline-block;
+        width: 1px;
+        height: 56px;
+        background: rgba(255,255,255,0.3);
+        position: absolute;
+        right: 0;
+        top: 50%;
+        margin-top: -28px;
+    }
+
+    .nav-index-list .nav-fast-li:last-child::after {
+        display: none;
+    }
+
+    .nav-index-list .nav-td {
+        padding: 12px 0;
+        font-size: 14px;
+        line-height: 28px;
+    }
+
+    .nav-index-list .nav-td li {
+        float: left;
+        margin-right: 33px;
+    }
+
+    .nav-td .td-a a {
+        color: #fff;
+    }
+
+    .nav-index-list .nav-td .fxts-a {
+        margin-right: 35px;
+    }
+    .headernav-bl .user-name {
+        display: inline-block;
+        overflow: hidden;
+        max-width: 50px;
+        white-space: nowrap;
+        line-height: 1;
+        vertical-align: middle;
+        text-overflow: ellipsis;
+        margin-left: 3px;
+    }
+    #stuName {
+        display: inline-block;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        vertical-align: middle;
+    }
+    .loaction-dl {
+        float: none;
+        height: 30px;
+        line-height: 30px;
+        text-align: right;
+        margin: 26px 0 -2px 20px;
+        display: block;
+    }
+    .loaction-dl .site-name{
+        font-size: 16px;
+        font-weight: 700;
+        max-width: 250px;
+    }
+    .a-bl {
+        height: 110px;
+    }
+</style>
+
+<!--导航 begin-->
+<header>
+    <!-- 顶部登录入口 -->
+    <div class="headernav-bl">
+        <div class="navbar-top clearfix navbar">
+      <span class="logo-bl">
+         <span class="logo-img"></span>职业测试服务平台
+      </span>
+
+        </div>
+    </div>
+</header>
+<div class="contain-bl">
+    <div class="container">
+
+        <div class="item-title" style="background: #e5edeb ">职业测评</div>
+        <div class="zycp-bl">
+            <ul class="zycp-ul clearfix">
+                <li class="clearfix">
+                    <a href="https://xz.chsi.com.cn/cp/common/cover.do?surveyId=zasphhl8hls6jhca&amp;from=xzpt" class="list-item"  target="_blank">
+                        <div class="list-item-img">
+                            <img src="https://t1.chei.com.cn/xzpt/survey/cdn/showimg/bi9k72f23iok784n.jpeg">
+                        </div>
+                        <div class="list-item-content">
+                            <div class="content-title">
+                                <span class="text">测你的合作/竞争倾向</span>
+                            </div>
+                            <div class="content-des">工作学习中你更善于团队合作还是独立完成任务？合作必不可少，竞争则是对自我发展的需求，两者并不冲突。想知道你的合作/竞争偏向吗，一试便知。</div>
+                            <div class="list-item-btn">
+                                <button type="button" class="btn btn-primary">
+                                    <span>进入测评</span>
+                                </button>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+
+                <li class="clearfix">
+                    <a href="https://xz.chsi.com.cn/cp/common/cover.do?surveyId=guivdw9od19g72lp&amp;from=xzpt" class="list-item" target="_blank">
+                        <div class="list-item-img"><img
+                                src="https://t1.chei.com.cn/xzpt/survey/cdn/showimg/m7hzdzoredok0yx2.jpeg"></div>
+                        <div class="list-item-content">
+                            <div class="content-title">
+                                <span class="text">主动性人格测试</span>
+                            </div>
+                            <div class="content-des">在团体组织中，你是那个会主动改变环境，为自己创造有利机会的人吗？你会采取有效行动及时解决问题吗？测一测了解你在工作中的人格倾向如何。</div>
+
+                            <div class="list-item-btn">
+                                <button type="button" class="btn btn-primary">
+                                    <span>进入测评</span>
+                                </button>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+
+                <li class="clearfix">
+                    <a href="https://xz.chsi.com.cn/cp/common/cover.do?surveyId=lxjsifggxer9c9m5&amp;from=xzpt" class="list-item" target="_blank">
+                        <div class="list-item-img"><img
+                                src="https://t1.chei.com.cn/xzpt/survey/cdn/showimg/sayklkzp2t1a6e8m.jpeg"></div>
+                        <div class="list-item-content">
+                            <div class="content-title"><span class="text">大五人格测试</span>
+                            </div>
+                            <div class="content-des">
+                                想知道你是怎样一个“特殊”的你吗，不妨借助测试来对自我探索一番，苏格拉底说，认识你自己，在所有的探索中自我探索总是让人着迷而又其乐无穷，还等什么，快点击马上开始吧！
+                            </div>
+                            <div class="list-item-btn">
+                                <button type="button" class="btn btn-primary">
+                                    <span>进入测评</span>
+                                </button>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li class="clearfix">
+                    <a href="https://xz.chsi.com.cn/cp/common/cover.do?surveyId=7ftgcxatq0u70lzi&amp;from=xzpt" class="list-item" target="_blank">
+                        <div class="list-item-img"><img
+                                src="https://t1.chei.com.cn/xzpt/survey/cdn/showimg/ukp0mys0zyo6b0ft.jpeg"></div>
+                        <div class="list-item-content">
+                            <div class="content-title"><span class="text">职业兴趣测评</span>
+                            </div>
+                            <div class="content-des">你是哪一种类型呢？匹配的职业又有哪些？根据职业兴趣，把自己放到合适的位置上，会起到事半功倍的效果哦！</div>
+                            <div class="list-item-btn">
+                                <button type="button" class="btn btn-primary">
+                                    <span>进入测评</span>
+                                </button>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li class="clearfix">
+                    <a href="https://xz.chsi.com.cn/cp/common/cover.do?surveyId=f4ediwycn6qj8nm4&amp;from=xzpt" class="list-item" target="_blank">
+                        <div class="list-item-img"><img
+                                src="https://t1.chei.com.cn/xzpt/survey/cdn/showimg/9v8qlsus5vkoxswl.jpeg"></div>
+                        <div class="list-item-content">
+                            <div class="content-title">
+                                <span class="text">专业认同度测试</span>
+                            </div>
+                            <div class="content-des">
+                                不喜欢现在的专业？总觉得有哪里不够满意？上课的时候总是提不起劲？缺乏热情，浑浑噩噩却又不知该何去何从，来测测你的专业认同度吧，或许它能帮你厘清你迷茫困惑的现状，为你的下一步选择点一盏明灯。</div>
+                            <div class="list-item-btn">
+                                <button type="button" class="btn btn-primary">
+                                    <span>进入测评</span>
+                                </button>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li class="clearfix">
+                    <a href="https://xz.chsi.com.cn/cp/common/cover.do?surveyId=l5awbbn66eyg4rqo&amp;from=xzpt" class="list-item" target="_blank">
+                        <div class="list-item-img"><img
+                                src="https://t1.chei.com.cn/xzpt/survey/cdn/showimg/gr81c97mf2ivf3q1.jpeg"></div>
+                        <div class="list-item-content">
+                            <div class="content-title">
+                                <span class="text">幸福指数测试</span>
+                            </div>
+                            <div class="content-des">
+                                关于什么是幸福，人类进行了上千年的思考，试图从各种途径阐释幸福的由来和获得幸福的方法，而现代社会，随着物质生活的满足和丰富，人们越来越关注精神的愉悦和满足，那么问题来了：你的幸福感如何？想知道吗，来测测看吧。
+                            </div>
+                            <div class="list-item-btn">
+                                <button type="button" class="btn btn-primary">
+                                    <span>进入测评</span>
+                                </button>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<style>
+    footer {
+        font-size: 14px;
+        position: absolute;
+        bottom: 0px;
+        left: 0px;
+        width: 100%;
+    }
+    footer a:hover {
+        text-decoration: underline;
+    }
+</style>
+<footer style="height: 130px; background: #333; color: #fff; text-align: center; line-height: 27px; margin-top: 30px">
+    <div style="width: 1170px; margin: 0 auto; position: relative; padding-top: 24px">
+        <p style="margin: 0; word-spacing: 23px; color: #ccc">
+            <a style="color: #ccc" href="/intro" target="_blank">网站介绍</a>
+            <span>|</span>
+            <a style="color: #ccc" href="/contact" target="_blank">联系我们</a>
+        </p>
+        <p style="margin: 0">版权所有：<a style="color: #fff" href="https://chesicc.chsi.com.cn/" target="_blank">就业信息推荐系统</a></p>
+        <p style="margin: 0">
+            <a style="color: #fff" href="https://beian.miit.gov.cn" target="_blank">LUT-18-0601号-1</a>
+            <a style="color:#fff;margin-left: 10px;" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010202009747" target="_blank"><img style="position:relative;top:-1px" src="https://t3.chei.com.cn/chsi/images/jgwab.png"><span style="margin-left: 5px;color:#fff;">京公网安备1xxxxxx号</span></a>
+        </p>
+    </div>
+</footer>

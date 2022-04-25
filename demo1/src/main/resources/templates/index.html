@@ -1,0 +1,466 @@
+<html>
+<link
+        href="https://fonts.googleapis.com/css?family=Poppins:200i,300,400&display=swap"
+        rel="stylesheet"
+/>
+<link
+        href="https://fonts.googleapis.com/css?family=Raleway:700&display=swap"
+        rel="stylesheet"
+/>
+<style>
+    /* Custom properties/variables  */
+    :root {
+        --main-white: #f0f0f0;
+        --main-red: #be3144;
+        --main-blue: #45567d;
+        --main-gray: #303841;
+    }
+
+    /* Base reset */
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    /* box-sizing and font sizing */
+    *,
+    *::before,
+    *::after {
+        box-sizing: inherit;
+    }
+
+    html {
+        box-sizing: border-box;
+        font-size: 62.5%;
+        scroll-behavior: smooth;
+    }
+
+    @media (max-width: 75em) {
+        html {
+            font-size: 60%;
+        }
+    }
+
+    @media (max-width: 61.25em) {
+        html {
+            font-size: 58%;
+        }
+    }
+
+    /* 460px / 16px = 28.75em */
+    @media (max-width: 28.75em) {
+        html {
+            font-size: 55%;
+        }
+    }
+
+    /* Base styles */
+
+    body {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.8rem; /* 18px */
+        font-weight: 400;
+        line-height: 1.4;
+        color: var(--main-white);
+    }
+
+    h2 {
+        font-family: 'Raleway', sans-serif;
+        font-weight: 700;
+        text-align: center;
+    }
+
+    h1 {
+        font-size: 6rem;
+    }
+
+    h2 {
+        font-size: 4.2rem;
+    }
+
+    ul {
+        list-style: none;
+    }
+
+    a {
+        text-decoration: none;
+        color: var(--main-white);
+    }
+
+    img {
+        display: block;
+        width: 100%;
+    }
+
+    /* nav */
+
+    .nav {
+        display: flex;
+        justify-content: flex-end;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background:var(--main-red);
+        box-shadow: 0 2px 0 rgba(0, 0, 0, 0.4);
+        z-index: 10;
+    }
+
+    .nav-list {
+        display: flex;
+        margin-right: 2rem;
+    }
+
+    @media (max-width: 28.75em) {
+        .nav {
+            justify-content: center;
+        }
+
+        .nav-list {
+            margin: 0 1rem;
+        }
+    }
+
+    .nav-list a {
+        display: block;
+        font-size: 2.2rem;
+        padding: 2rem;
+    }
+
+    .nav-list a:hover {
+        background: var(--main-blue);
+    }
+
+    /* Welcome section */
+
+    .welcome-section {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100vh;
+        background-color: #000;
+        background-image: linear-gradient(62deg, #3a3d40 0%, #181719 100%);
+    }
+
+    .welcome-section > p {
+        font-size: 3rem;
+        font-weight: 200;
+        font-style: italic;
+        color: var(--main-red);
+    }
+
+    /* Projects section */
+
+    .projects-section {
+        text-align: center;
+        padding: 10rem 2rem;
+        background: var(--main-blue);
+    }
+
+    .projects-section-header {
+        max-width: 640px;
+        margin: 0 auto 6rem auto;
+        border-bottom: 0.2rem solid var(--main-white);
+    }
+
+    @media (max-width: 28.75em) {
+        .projects-section-header {
+            font-size: 4rem;
+        }
+    }
+
+    /* "Automagic" image grid using no media queries */
+    .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        grid-gap: 4rem;
+        width: 100%;
+        max-width: 1280px;
+        margin: 0 auto;
+        margin-bottom: 6rem;
+    }
+
+    @media (max-width: 30.625em) {
+        .projects-section {
+            padding: 6rem 1rem;
+        }
+
+        .projects-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .project {
+        background: var(--main-gray);
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        border-radius: 2px;
+    }
+
+    .code {
+        color: var(--main-gray);
+        transition: color 0.3s ease-out;
+    }
+
+    .project:hover .code {
+        color: #ff7f50;
+    }
+
+    .project-image {
+        height: calc(100% - 6.8rem);
+        width: 100%;
+        object-fit: cover;
+    }
+
+    .project-title {
+        font-size: 2rem;
+        padding: 2rem 0.5rem;
+    }
+
+    .btn-show-all:hover > i {
+        transform: translateX(2px);
+    }
+
+    .btn-show-all > i {
+        margin-left: 10px;
+        transform: translateX(0);
+        transition: transform 0.3s ease-out;
+    }
+
+    /* Contact section */
+
+    .contact-section {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        width: 100%;
+        height: 66vh;
+        padding: 0 2rem;
+        background: var(--main-gray);
+    }
+
+    .contact-section-header > h2 {
+        font-size: 3rem;
+    }
+
+    @media (max-width: 28.75em) {
+        .contact-section-header > h2 {
+            font-size: 3px;
+        }
+    }
+
+    .contact-section-header > p {
+        font-style: normal;
+    }
+
+    .contact-links {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        max-width: 980px;
+        margin-top: 4rem;
+        flex-wrap: wrap;
+    }
+
+    .contact-details {
+        font-size: 2rem;
+        text-shadow: 2px 2px 1px #1f1f1f;
+        transition: transform 0.3s ease-out;
+    }
+
+    .contact-details:hover {
+        transform: translateY(8px);
+    }
+
+    /* Footer */
+
+    footer {
+        font-weight: 300;
+        display: flex;
+        justify-content: space-evenly;
+        padding: 2rem;
+        background: var(--main-gray);
+        border-top: 4px solid var(--main-red);
+    }
+
+    footer > p {
+        margin: 2rem;
+    }
+
+    footer i {
+        vertical-align: middle;
+    }
+
+    @media (max-width: 28.75em) {
+        footer {
+            flex-direction: column;
+            text-align: center;
+        }
+    }
+
+</style>
+<head>
+    <meta charset="UTF-8">
+    <title>index</title>
+</head>
+<nav id="navbar" class="nav">
+    <ul class="nav-list">
+        <li>
+            <a href="/form_demo">推荐</a>
+        </li>
+        <li>
+            <a href="/table">分析</a>
+        </li>
+        <li>
+            <a href="/jobs">查找</a>
+        </li>
+        <li>
+            <a href="/" style="color: #101010">退出</a>
+        </li>
+    </ul>
+</nav>
+
+<section id="welcome-section" class="welcome-section">
+    <h1>Hey！求职者</h1>
+    <p>欢迎来到就业推荐系统</p>
+</section>
+
+
+
+<section id="projects" class="projects-section">
+    <h2 class="projects-section-header">过去的，现在的，终将向未来！</h2>
+
+    <div class="projects-grid">
+        <a
+                href="/test"
+                target="_blank"
+                class="project project-tile"
+        >
+            <img
+                    class="project-image"
+                    src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic1.zhimg.com%2Fv2-8634c99db5206d695f0dc599ce9054c0_1440w.jpg%3Fsource%3D172ae18b&refer=http%3A%2F%2Fpic1.zhimg.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1652434710&t=e82f411a95616761154bce4c37effb4d"
+                    alt="project"
+            />
+            <p class="project-title">
+                <span class="code">&lt;</span>
+                职业测评
+                <span class="code">&#47;&gt;</span>
+            </p>
+        </a>
+        <a
+                href="http://moking1997.gitee.io/resume/"
+                target="_blank"
+                class="project project-tile"
+        >
+            <img
+                    class="project-image"
+                    src="https://file.500d.me/upload/image/202010/30/f9bd9d63-6843-40b9-92b1-a421940d2c34.png"
+                    alt="project"
+            />
+            <p class="project-title">
+                <span class="code">&lt;</span>
+                简历制作
+                <span class="code">&#47;&gt;</span>
+            </p>
+        </a>
+        <a
+                href="https://www.acmcoder.com/index"
+                target="_blank"
+                class="project project-tile"
+        >
+            <img
+                    class="project-image"
+                    src="https://ae01.alicdn.com/kf/Hfc13da382b29484da8fe282fc8b69f85I.jpg"
+                    alt="project"
+            />
+            <p class="project-title">
+                <span class="code">&lt;</span>
+                模拟笔试
+                <span class="code">&#47;&gt;</span>
+            </p>
+        </a>
+        <a
+                href="https://www.nowcoder.com/discuss/experience/index"
+                target="_blank"
+                class="project project-tile"
+        >
+
+            <img
+                    class="project-image"
+                    src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fp9.itc.cn%2Fq_70%2Fimages03%2F20200722%2Fce6182acc66b47788b1b76b2f60268ba.jpeg&refer=http%3A%2F%2Fp9.itc.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1651660679&t=09d2f2dac5767a4b5aa351a8bc66aff1"
+                    alt="project"
+            />
+            <p class="project-title">
+                <span class="code">&lt;</span>
+                面试经验
+                <span class="code">&#47;&gt;</span>
+            </p>
+        </a>
+        <a
+                href="https://www.nowcoder.com/discuss/referral/index"
+                target="_blank"
+                class="project project-tile"
+        >
+            <img
+                    class="project-image"
+                    src="https://gss0.baidu.com/7LsWdDW5_xN3otqbppnN2DJv/forum/pic/item/622762d0f703918f5a92dfd10c3d269759eec46f.jpg"
+                    alt="project"
+            />
+            <p class="project-title">
+                <span class="code">&lt;</span>
+                名企内推
+                <span class="code">&#47;&gt;</span>
+            </p>
+        </a>
+        <a
+                href="https://www.pedaily.cn/"
+                target="_blank"
+                class="project project-tile"
+        >
+            <img
+                    class="project-image"
+                    src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.36krcdn.com%2F20211013%2Fv2_ed23fd49e0fc47caa29ddb5129ae34c2_img_000&refer=http%3A%2F%2Fimg.36krcdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1651661308&t=27bf98bbb56671aad56148f6ad64ae4c"
+                    alt="project"
+            />
+            <p class="project-title">
+                <span class="code">&lt;</span>
+                业界动向
+                <span class="code">&#47;&gt;</span>
+            </p>
+        </a>
+    </div>
+</section>
+
+<!-- END PROJECTS SECTION -->
+
+<!-- START CONTACT SECTION -->
+
+<section id="contact" class="contact-section">
+    <div class="contact-section-header">
+        <h2></h2>
+        <p>你总感叹时间飞快，昨天还在，转眼未来已到来。无论怎样的未来，有些事不能等待!</br>
+            你看天边的光，或明或暗，却从未熄灭！</br>
+            当有一天我无力衰老，希望我们能为彼此骄傲。</p>
+    </div>
+</section>
+
+<!-- END CONTACT SECTION -->
+
+<!-- START FOOTER SECTION -->
+
+<footer>
+    <p>
+        细水长流，只争朝夕。
+    </p>
+    <p>
+        &copy; Created for
+        <a href="/echarts" target="_blank"
+        >@XiaoShu<i class="fab fa-free-code-camp"></i
+        ></a>
+    </p>
+
+</footer>
+</html>

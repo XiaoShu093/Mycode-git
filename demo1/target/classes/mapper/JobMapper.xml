@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jobs.demo1.dao.JobMapper" >
+  <resultMap id="BaseResultMap" type="com.jobs.demo1.bean.Job" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="href" property="href" jdbcType="VARCHAR" />
+    <result column="c_name" property="cName" jdbcType="VARCHAR" />
+    <result column="salary" property="salary" jdbcType="VARCHAR" />
+    <result column="area" property="area" jdbcType="VARCHAR" />
+    <result column="exp" property="exp" jdbcType="VARCHAR" />
+    <result column="edu" property="edu" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, title, href, c_name, salary, area, exp, edu
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.jobs.demo1.bean.JobExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from job_data
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExampleOnlyTitle" resultMap="BaseResultMap" parameterType="com.jobs.demo1.bean.JobExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from jobs
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from job_data
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from jobs
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.jobs.demo1.bean.JobExample" >
+    delete from jobs
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.jobs.demo1.bean.Job" >
+    insert into jobs (id, title, href, 
+      c_name, salary, area, 
+      exp, edu)
+    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{href,jdbcType=VARCHAR}, 
+      #{cName,jdbcType=VARCHAR}, #{salary,jdbcType=VARCHAR}, #{area,jdbcType=VARCHAR}, 
+      #{exp,jdbcType=VARCHAR}, #{edu,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jobs.demo1.bean.Job" >
+    insert into jobs
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="href != null" >
+        href,
+      </if>
+      <if test="cName != null" >
+        c_name,
+      </if>
+      <if test="salary != null" >
+        salary,
+      </if>
+      <if test="area != null" >
+        area,
+      </if>
+      <if test="exp != null" >
+        exp,
+      </if>
+      <if test="edu != null" >
+        edu,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="href != null" >
+        #{href,jdbcType=VARCHAR},
+      </if>
+      <if test="cName != null" >
+        #{cName,jdbcType=VARCHAR},
+      </if>
+      <if test="salary != null" >
+        #{salary,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="exp != null" >
+        #{exp,jdbcType=VARCHAR},
+      </if>
+      <if test="edu != null" >
+        #{edu,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.jobs.demo1.bean.JobExample" resultType="java.lang.Integer" >
+    select count(*) from job_data
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <select id="countByTitle" resultType="integer">
+    select count(title) from job_data where title like "%"#{title}"%"
+  </select>
+  <select id="countByTitleAndArea" resultType="integer">
+    select count(title) from job_data where title like "%"#{title}"%" and area like "%"#{area}"%"
+  </select>
+  <select id="countByExp" resultType="integer">
+    select count(title) from job_data where title like "%"#{title}"%" and exp like "%"#{exp}"%"
+  </select>
+  <select id="selectTitleByLike" resultMap="BaseResultMap">
+    select title,salary,c_name,area from job_data where title like "%"#{title}"%"
+  </select>
+  <select id="selectTitleByTitleAndArea" resultMap="BaseResultMap">
+    select title,salary,href,c_name,area from job_data where title like "%"#{title}"%" and area like "%"#{area}"%"
+  </select>
+  <select id="selectTitleByTitleAndAreaAndCname" resultMap="BaseResultMap">
+    select title,salary,href,c_name,area from job_data where title like "%"#{title}"%" and area like "%"#{area}"%" and c_name like "%"#{cname}"%"
+  </select>
+  <select id="selectTitleByTitleAreaAndExp" resultMap="BaseResultMap">
+    select distinct title,salary,c_name,area,href from job_data where title like "%"#{title}"%" and area like "%"#{area}"%" and exp like "%"#{exp}"%"
+  </select>
+  <select id="selectAreaByLike" resultMap="BaseResultMap">
+    select title,c_name,salary from job_data where area like "%"#{area}"%"
+  </select>
+  <select id="selectSalaryByTitle" resultMap="BaseResultMap">
+    select salary from job_data where title like "%"#{title}"%"
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update jobs
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.href != null" >
+        href = #{record.href,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cName != null" >
+        c_name = #{record.cName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.salary != null" >
+        salary = #{record.salary,jdbcType=VARCHAR},
+      </if>
+      <if test="record.area != null" >
+        area = #{record.area,jdbcType=VARCHAR},
+      </if>
+      <if test="record.exp != null" >
+        exp = #{record.exp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.edu != null" >
+        edu = #{record.edu,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update jobs
+    set id = #{record.id,jdbcType=INTEGER},
+      title = #{record.title,jdbcType=VARCHAR},
+      href = #{record.href,jdbcType=VARCHAR},
+      c_name = #{record.cName,jdbcType=VARCHAR},
+      salary = #{record.salary,jdbcType=VARCHAR},
+      area = #{record.area,jdbcType=VARCHAR},
+      exp = #{record.exp,jdbcType=VARCHAR},
+      edu = #{record.edu,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jobs.demo1.bean.Job" >
+    update jobs
+    <set >
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="href != null" >
+        href = #{href,jdbcType=VARCHAR},
+      </if>
+      <if test="cName != null" >
+        c_name = #{cName,jdbcType=VARCHAR},
+      </if>
+      <if test="salary != null" >
+        salary = #{salary,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        area = #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="exp != null" >
+        exp = #{exp,jdbcType=VARCHAR},
+      </if>
+      <if test="edu != null" >
+        edu = #{edu,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jobs.demo1.bean.Job" >
+    update jobs
+    set title = #{title,jdbcType=VARCHAR},
+      href = #{href,jdbcType=VARCHAR},
+      c_name = #{cName,jdbcType=VARCHAR},
+      salary = #{salary,jdbcType=VARCHAR},
+      area = #{area,jdbcType=VARCHAR},
+      exp = #{exp,jdbcType=VARCHAR},
+      edu = #{edu,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

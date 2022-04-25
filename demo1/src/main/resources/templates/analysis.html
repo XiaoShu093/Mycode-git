@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <script src= "../static/lib/echarts.js"></script>
+    <script src="../static/lib/jquery-1.9.1.js"></script>
+<h1></h1><br/>
+</head>
+<body>
+<style>@import url('https://fonts.googleapis.com/css?family=Poppins:200i,400&display=swap');
+    :root {
+        --color-white: #f3f3f3;
+        --color-darkblue: #1b1b32;
+        --color-darkblue-alpha: rgba(27, 27, 50, 0.8);
+        --color-green: #37af65;
+    }
+
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.4;
+        color: var(--color-white);
+        margin: 0;
+    }
+
+    /* mobile friendly alternative to using background-attachment: fixed */
+    body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        z-index: -1;
+        background: var(--color-darkblue-alpha);
+        background-image: linear-gradient(
+                115deg,
+                rgba(58, 58, 158, 0.8),
+                rgba(136, 136, 206, 0.7)
+        ),
+        url(https://cdn.freecodecamp.org/testable-projects-fcc/images/survey-form-background.jpeg);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+         }
+      * {
+        margin: 0;
+        padding: 0;
+        color: azure;
+        }
+     .header {
+        padding: 0 0.625rem;
+        margin-bottom: 1.875rem;
+        }
+    .text-center {
+        text-align: center;
+    }
+    .description {
+        font-style: italic;
+        font-weight: 200;
+        text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
+    }
+        html, body{
+            width: 100%;
+            height: 100%;
+        }
+        #sign1{
+            width: 100%;
+            height: 86%;
+            position: relative;
+        }
+        #sign2{
+        width: 100%;
+        height: 86%;
+        position: relative;
+        display: inline-block;
+        }
+        #sign3{
+        width: 100%;
+        height: 86%;
+        position: relative;
+        display: inline-block;
+        }
+        #sign4{
+        width: 100%;
+        height: 86%;
+        position: relative;
+        display: inline-block;
+        }
+        #sign5{
+        width: 100%;
+        height: 86%;
+        position: relative;
+        display: inline-block;
+        }
+</style>
+<header class="header">
+    <h1 id="title" class="text-center">就业数据视图分析</h1>
+    <p id="description" class="description text-center">
+        Thank you for taking the time to help me improve the project
+    </p>
+</header>
+        <div id="sign1" ></div><hr style="height:2px;border:2px;border-top:1px dashed rgba(27, 27, 50, 0.8);"/>
+        <div id="sign2" ></div><hr style="height:2px;border:none;border-top:1px dashed rgba(27, 27, 50, 0.8);"/>
+        <div id="sign3" ></div><hr style="height:2px;border:none;border-top:1px dashed rgba(27, 27, 50, 0.8);"/>
+        <div id="sign4" ></div><hr style="height:2px;border:none;border-top:1px dashed rgba(27, 27, 50, 0.8);"/>
+        <div id="sign5" ></div><hr style="height:2px;border:none;border-top:1px dashed rgba(27, 27, 50, 0.8);"/>
+
+    <script type="text/javascript">
+
+        $(function (){
+            myEvent();
+        });
+
+        // 基于准备好的dom，初始化echarts实例
+        function myEvent(){
+
+            $.ajax({
+                type:'get',
+                url:'/countData',
+                async:false,
+                success:function (data) {
+                    // console.log(data);
+                    var countDetails=[];
+                    for(let i=0; i<data.countDetail.length;i++){
+                        countDetails[i]=data.countDetail[i]
+                    }
+                    countOption0_1=countDetails;
+                    var countKind=[];
+                    for(let i=0; i<data.countKinds.length;i++){
+                        countKind[i]=data.countKinds[i]
+                    }
+                    countOption0_2=countKind;
+                    //传递北京地区参数
+                    var countByBeis=[];
+                    for(let i=0; i<data.countByBei.length;i++){
+                        countByBeis[i]=data.countByBei[i]
+                    }
+                    countOption0_3=countByBeis;
+                    //传递上海地区参数
+                    var countByShangs=[];
+                    for(let i=0; i<data.countByShang.length;i++){
+                        countByShangs[i]=data.countByShang[i]
+                    }
+                    countOption0_4=countByShangs;
+                    //传递杭州地区参数
+                    var countByAreaHangZs=[];
+                    for(let i=0; i<data.countAreaByHangZ.length;i++){
+                        countByAreaHangZs[i]=data.countAreaByHangZ[i]
+                    }
+                    countOption0_5=countByAreaHangZs;
+                    //传递西安地区参数
+                    var countAreaByXians=[];
+                    for(let i=0; i<data.countAreaByXian.length;i++){
+                        countAreaByXians[i]=data.countAreaByXian[i]
+                    }
+                    countOption0_6=countAreaByXians;
+                    //传递成都地区
+                    var countAreaByChengDs=[];
+                    for(let i=0; i<data.countAreaByChengD.length;i++){
+                        countAreaByChengDs[i]=data.countAreaByChengD[i]
+                    }
+                    countOption0_7=countAreaByChengDs;
+                //    传递武汉地区
+                    var countAreaByWuHans=[];
+                    for(let i=0; i<data.countAreaByWuHan.length;i++){
+                        countAreaByWuHans[i]=data.countAreaByWuHan[i]
+                    }
+                    countOption0_8=countAreaByWuHans;
+
+                //    传递开发语言经验参数
+                    var countByExps=[];
+                    for(let i=0; i<data.countByExp.length;i++){
+                        countByExps[i]=data.countByExp[i]
+                    }
+                    countOption0_9=countByExps;
+                }
+
+            })
+            this.getCountDetails=function (){
+                return countOption0_1;
+            }
+            this.getCountKinds=function (){
+                return countOption0_2;
+            }
+            this.getCountExp=function () {
+                return countOption0_9;
+            }
+
+        }
+
+        new myEvent().getCountDetails();
+        new myEvent().getCountKinds();
+        new myEvent().getCountExp();
+
+        var myChart1 = echarts.init(document.getElementById('sign1'));
+        // 指定图表的配置项和数据
+        var option1 = {
+            title: {
+                text: '编程语言岗位提供数',
+                textStyle:{
+                    color:'white'
+                }
+            },
+            tooltip: {},
+            legend: {
+                textStyle:{
+                    color:'white'
+                },
+                data: ['Language'],
+            },
+            xAxis: {
+                data: ['c/c++', 'Java', 'python', 'go语言', 'PHP'],
+                axisLine:{
+                    lineStyle: {
+                        color:'rgba(27, 27, 50, 0.8)',
+                        width: 2,
+                    }
+                }
+
+            },
+            yAxis: {
+                axisLabel:{
+                    textStyle:{
+                        color:'white'
+                    }
+                },
+                axisLine:{
+                    lineStyle: {
+                        color:'#000000',
+                        width: 2,
+                    }
+                }
+            },
+            series: [
+                {
+                    name: 'Language',
+                    type: 'bar',
+                    geoIndex:0,
+                    data: countOption0_1,
+                    label: {
+                        show: true,
+                        position: 'top',
+                        textStyle: {
+                            fontsize: 22,
+                            color: 'white'
+                        }
+                    },
+                    color: 'rgba(27, 27, 50, 0.8)'
+                }
+            ]
+        };
+
+        var myChart2 = echarts.init(document.getElementById('sign2'));
+        // 指定图表的配置项和数据
+        var option2 = {
+            title: {
+                text: '技术类岗位就业走势',
+                textStyle:{
+                    color:'white'
+                }
+            },
+            tooltip: {},
+            legend: {
+                data: ['Kinds']
+            },
+            xAxis: {
+                type:'category',
+                data: ['后端', '前端', '大数据', '人工智能','移动开发','测试'],
+                axisLine:{
+                    lineStyle: {
+                        color:'#000000',
+                        width: 2,
+                    }
+                }
+            },
+            yAxis: {
+                axisLabel:{
+                    textStyle:{
+                        color:'white'
+                    }
+                },
+                type:'value',
+                axisLine:{
+                    lineStyle: {
+                        color:'#000000',
+                        width: 2,
+                    }
+                }
+            },
+            series: [
+                {
+                    name: 'Kinds',
+                    type: 'line',
+                    smooth:true,
+                    lineStyle:{
+                        normal:{
+                            color:'rgba(0,0,0,0.7)',
+                            width:4,
+                            type:'dashed'
+                        }
+                    },
+                    label:{
+                      show:true,
+                      position:'top',
+                      textStyle:{
+                          fontsize:22,
+                          color:'white'
+                      }
+                    },
+                    data:countOption0_2
+                }
+            ]
+        };
+
+        var myChart3 = echarts.init(document.getElementById('sign3'));
+        var option3 = {
+            title: {
+                text: '一线城市就业走势',
+                textStyle:{
+                    color:'white'
+                }
+            },
+            tooltip: {},
+            legend: {
+                data: ['北京','上海']
+            },
+            xAxis: {
+                data: ['开发', '房地产', '市场', '人事', '销售','金融'],
+                axisLine:{
+                    lineStyle: {
+                        color:'#000000',
+                        width: 2,
+                    }
+                }
+            },
+            yAxis: {
+                axisLabel:{
+                    textStyle:{
+                        color:'white'
+                    }
+                },
+                type:'value',
+                axisLine:{
+                    lineStyle: {
+                        color:'#000000',
+                        width: 2,
+                    }
+                }
+            },
+            series: [
+                {
+                    name:'北京',
+                    data: countOption0_3,
+                    type: 'line',
+                    lineStyle:{
+                        normal:{
+                            width:3,
+                        }
+                    },
+                    // stack: 'x',
+                    label:{
+                        show:true,
+                        position:'top',
+                        textStyle:{
+                            fontsize:22,
+                            color:'white'
+                        }
+                    },
+                },
+                {
+                    name:'上海',
+                    data: countOption0_4,
+                    type: 'line',
+                    lineStyle:{
+                        normal:{
+                            width:3,
+                        }
+                    },
+                    // stack: 'x',
+                    label:{
+                        show:true,
+                        position:'top',
+                        textStyle:{
+                            fontsize:22,
+                            color:'white'
+                        }
+                    },
+                }
+            ]
+        };
+
+        var myChart4 = echarts.init(document.getElementById('sign4'));
+        var option4 = {
+            title: {
+                text: '新一线就业走势',
+                textStyle:{
+                    color:'white'
+                }
+            },
+            tooltip: {},
+            legend: {
+                data: ['杭州','西安','成都','武汉']
+            },
+            xAxis: {
+                data: ['开发', '房地产', '市场', '人事', '销售','金融'],
+                axisLine:{
+                    lineStyle: {
+                        color:'#000000',
+                        width: 2,
+                    }
+                }
+            },
+            yAxis: {
+                axisLabel:{
+                    textStyle:{
+                        color:'white'
+                    }
+                },
+                type:'value',
+                axisLine:{
+                    lineStyle: {
+                        color:'#000000',
+                        width: 2,
+                    }
+                }
+            },
+            series: [
+                {
+                    name:'杭州',
+                    data: countOption0_5,
+                    type: 'line',
+                    lineStyle:{
+                        normal:{
+                            width:3,
+                        }
+                    },
+                    label:{
+                        show:true,
+                        position:'bottom',
+                        textStyle:{
+                            fontsize:22,
+                            color:'white'
+                        }
+                    },
+                },
+                {
+                    name: '西安',
+                    data: countOption0_6,
+                    type: 'line',
+                    lineStyle:{
+                        normal:{
+                            width:3,
+                        }
+                    },
+                    label: {
+                        show: true,
+                        position: 'top',
+                        textStyle: {
+                            fontsize: 22,
+                            color: 'white'
+                        }
+                    },
+                },
+                {
+                    name:'成都',
+                    data: countOption0_7,
+                    type: 'line',
+                    lineStyle:{
+                        normal:{
+                            width:3,
+                        }
+                    },
+                    label:{
+                        show:true,
+                        position:'right',
+                        textStyle:{
+                            fontsize:22,
+                            color:'white'
+                        }
+                    },
+                },
+                {
+                    name:'武汉',
+                    data: countOption0_8,
+                    type: 'line',
+                    lineStyle:{
+                        normal:{
+                            width:3,
+                        }
+                    },
+                    label:{
+                        show:true,
+                        position:'top',
+                        textStyle:{
+                            fontsize:22,
+                            color:'white'
+                        }
+                    },
+                },
+            ]
+        };
+
+        var myChart5 = echarts.init(document.getElementById('sign5'));
+        // 指定图表的配置项和数据
+        var option5 = {
+            title: {
+                text: '开发岗位5年经验',
+                textStyle:{
+                    color:'white'
+                }
+            },
+            tooltip: {},
+            legend: {
+                textStyle:{
+                    color:'white'
+                },
+                data: ['JobKinds'],
+            },
+            xAxis: {
+                data: ['Java','C', 'python', '测试', '算法'],
+                axisLine:{
+                    lineStyle: {
+                        color:'rgba(27, 27, 50, 0.8)',
+                        width: 2,
+                    }
+                }
+
+            },
+            yAxis: {
+                axisLabel:{
+                    textStyle:{
+                        color:'white'
+                    }
+                },
+                axisLine:{
+                    lineStyle: {
+                        color:'#000000',
+                        width: 2,
+                    }
+                }
+            },
+            series: [
+                {
+                    name: 'Language',
+                    type: 'bar',
+                    geoIndex:0,
+                    data: countOption0_9,
+                    label: {
+                        show: true,
+                        position: 'top',
+                        textStyle: {
+                            fontsize: 22,
+                            color: 'white'
+                        }
+                    },
+                    color: 'rgba(27, 27, 50, 0.8)'
+                }
+            ]
+        };
+        myChart1.setOption(option1);
+        myChart2.setOption(option2);
+        myChart3.setOption(option3);
+        myChart4.setOption(option4);
+        myChart5.setOption(option5);
+    </script>
+</body>
+</html>

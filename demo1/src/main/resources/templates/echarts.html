@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>运营数据</title>
+    <script src="../static/lib/jquery-1.9.1.js"></script>
+    <script src="../static/lib/rem.js"></script>
+    <script src="../static/lib/echarts.min.js"></script>
+  <style>
+    /*简单初始化*/
+    html{
+      font-size: 100px;/*设置html字体大小以便rem*/
+    }
+    html,body{
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+    }
+    ul{
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    a{
+      text-decoration: none;
+    }
+    /*正文内容*/
+    .t_container{
+      width: 100%;
+      height: 100%;
+      background: url('../static/img/01.png') no-repeat;
+      background-size: 100% 100%;
+    }
+    .t_h_bg{
+      width: 100%;
+      height: 80px;
+      line-height: 80px;
+      background: url('../static/img/05.png') no-repeat;
+      background-size: 100% 100%;
+      text-align: center;
+    }
+    .t_h_bg span{
+      font-size: 32px;
+      color: #fff;
+      display: inherit;
+    }
+    .t_main{
+      text-align: center;
+    }
+    .t_box{
+      width: 8rem;
+      height: 4rem;
+      background: url('../static/img/03.png') no-repeat;
+      background-size: 100% 100%;
+      display: inline-block;
+      float: left;
+      position: relative;
+      margin-left: 1.06rem;
+      margin-top: 0.31rem;
+    }
+    .t_title{
+      text-align: center;
+      font-size: 0.16rem;
+      color: #fff;
+      font-weight: bold;
+      height: 0.4rem;
+      line-height: 0.4rem;
+      width: 100%;
+      margin-top: 0.4rem;
+    }
+    .t_list{
+      width: 100%;
+      text-align: center;
+      line-height: 0rem;
+      height: 0.6rem;
+    }
+    .t_min{
+      display: inline-block;
+      width: 1.4rem;
+      height: 0.4rem;
+      line-height: 0.4rem;
+      background: url('../static/img/04.png') no-repeat;
+      background-size: 100% 100%;
+      font-size: 0.16rem;
+      color: #fff;
+      position: relative;
+    }
+    .t_min i{
+      position: absolute;
+      display: inline-block;
+      width: 0.20rem;
+      height: 0.28rem;
+      background: url('../static/img/06.png') no-repeat;
+      background-size: 100% 100%;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+      right: 0.05rem;
+    }
+    .t_min i.down{
+      background: url('../static/img/02.png') no-repeat;
+      background-size: 100% 100%;
+    }
+    .t_number{
+      font-size: 0.24rem;
+    }
+    .main_table{
+      font-size: 16px;
+    }
+    .main_table tr{
+      height: 42px;
+    }
+    .main_table{
+      width: 88%;
+      margin-top: 25px;
+      margin: 0 auto;
+    }
+    .main_table table{
+      width: 100%;
+    }
+    .main_table thead tr{
+      height: 42px;
+    }
+    .main_table th{
+      font-size: 14px;
+      font-weight: 600;
+      color:#61d2f7;
+      text-align: center;
+    }
+
+    .main_table td{
+      color:#fff;
+      font-size: 14px;
+      text-align: center;
+    }
+    .main_table tbody tr:nth-child(1),
+    .main_table tbody tr:nth-child(3),
+    .main_table tbody tr:nth-child(5){
+      width: 98%;
+      background-color: #2B3AA8;
+      box-shadow:-10px 0px 15px #2C58A6 inset,   /*左边阴影*/
+      10px 0px 15px #2C58A6 inset;  /*右边阴影*/
+    }
+  </style>
+</head>
+<body>
+<script type="text/javascript">
+    // 基于准备好的dom，初始化echarts实例
+    function myEvent(){
+
+        $.ajax({
+            type:'get',
+            url:'/countData',
+            async:false,
+            success:function (data) {
+                // console.log(data);
+                var countDetails=[];
+                for(let i=0; i<data.countDetail.length;i++){
+                    countDetails[i]=data.countDetail[i]
+                }
+                countOption0_1=countDetails;
+                var countKind=[];
+                for(let i=0; i<data.countKinds.length;i++){
+                    countKind[i]=data.countKinds[i]
+                }
+                countOption0_2=countKind;
+                //传递北京地区参数
+                var countByBeis=[];
+                for(let i=0; i<data.countByBei.length;i++){
+                    countByBeis[i]=data.countByBei[i]
+                }
+                countOption0_3=countByBeis;
+                //传递上海地区参数
+                var countByShangs=[];
+                for(let i=0; i<data.countByShang.length;i++){
+                    countByShangs[i]=data.countByShang[i]
+                }
+                countOption0_4=countByShangs;
+                //传递杭州地区参数
+                var countByAreaHangZs=[];
+                for(let i=0; i<data.countAreaByHangZ.length;i++){
+                    countByAreaHangZs[i]=data.countAreaByHangZ[i]
+                }
+                countOption0_5=countByAreaHangZs;
+                //传递西安地区参数
+                var countAreaByXians=[];
+                for(let i=0; i<data.countAreaByXian.length;i++){
+                    countAreaByXians[i]=data.countAreaByXian[i]
+                }
+                countOption0_6=countAreaByXians;
+                //传递成都地区
+                var countAreaByChengDs=[];
+                for(let i=0; i<data.countAreaByChengD.length;i++){
+                    countAreaByChengDs[i]=data.countAreaByChengD[i]
+                }
+                countOption0_7=countAreaByChengDs;
+                //    传递武汉地区
+                var countAreaByWuHans=[];
+                for(let i=0; i<data.countAreaByWuHan.length;i++){
+                    countAreaByWuHans[i]=data.countAreaByWuHan[i]
+                }
+                countOption0_8=countAreaByWuHans;
+
+                //    传递开发语言经验参数
+                var countByExps=[];
+                for(let i=0; i<data.countByExp.length;i++){
+                    countByExps[i]=data.countByExp[i]
+                }
+                countOption0_9=countByExps;
+            }
+
+        })
+        this.getCountDetails=function (){
+            return countOption0_1;
+        }
+        this.getCountKinds=function (){
+            return countOption0_2;
+        }
+        this.getCountExp=function () {
+            return countOption0_9;
+        }
+
+    };
+
+    new myEvent().getCountDetails();
+    new myEvent().getCountKinds();
+    new myEvent().getCountExp();
+    $(function () {
+        echart_1();
+        echart_2();
+        echart_3();
+        echart_4();
+        myEvent();
+
+        function echart_1() {
+            var myChart = echarts.init(document.getElementById('chart_1'));
+
+            // 基于准备好的dom，初始化echarts实例
+            var option = {
+                // backgroundColor: '#0f375f',
+                title: {
+                    text: '编程语言岗位提供数',
+                    textStyle: {
+                        color: 'white'
+                    }
+                },
+                tooltip: {},
+                legend: {
+                    textStyle: {
+                        color: 'white'
+                    },
+                    data: ['Language'],
+                },
+                xAxis: {
+                    data: ['c/c++', 'Java', 'python', 'go语言', 'PHP'],
+                    axisLine: {
+                        lineStyle: {
+                            color: 'white',
+                            width: 2,
+                        }
+                    }
+
+                },
+                yAxis: {
+                    axisLabel: {
+                        textStyle: {
+                            color: 'white'
+                        }
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            color: '#000000',
+                            width: 2,
+                        }
+                    }
+                },
+                series: [
+                    {
+                        name: 'Language',
+                        type: 'bar',
+                        geoIndex: 0,
+                        data: countOption0_1,
+                        label: {
+                            show: true,
+                            position: 'top',
+                            textStyle: {
+                                fontsize: 22,
+                                color: 'white'
+                            }
+                        },
+                        color: 'rgba(27, 27, 50, 0.8)'
+                    }
+                ]
+            };
+            // 使用刚指定的配置项和数据显示图表。
+            myChart.setOption(option);
+            window.addEventListener("resize", function () {
+                myChart.resize();
+            });
+        }
+
+        function echart_2() {
+            // 基于准备好的dom，初始化echarts实例
+            var myChart = echarts.init(document.getElementById('chart_2'));
+            var giftImageUrl = "data:image/png;base64,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";
+            myChart.setOption({
+                graphic: {
+                    elements: [{
+                        type: 'image',
+                        style: {
+                            image: giftImageUrl,
+                            width: 30,
+                            height: 30
+                        },
+                        left: '73%',
+                        top: 'center'
+                    }]
+                },
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'shadow'
+                    }
+                },
+                legend: {
+                    data: ['Kinds'],
+                    left: '27%'
+                },
+                grid: {
+                    left: '1%',
+                    right: '60%',
+                    top: '10%',
+                    bottom: '10%',
+                    containLabel: true,
+                },
+                xAxis: {
+                    type: 'value',
+                    position: 'top',
+                    splitLine: {show: false},
+                    boundaryGap: [0, 0.01],
+                    axisTick: {
+                        show: false
+                    },
+                    axisLabel: {
+                        textStyle: {
+                            color: '#9ea7c4',
+                            fontSize: 12
+                        }
+                    },
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: '#6173A3'
+                        }
+                    },
+                },
+                yAxis: {
+                    type: 'category',
+                    data: ['后端', '前端', '大数据', '人工智能', '移动开发', '测试'],
+                    axisTick: {
+                        show: false
+                    },
+                    splitLine: {
+                        show: false
+                    },
+                    axisLabel: {
+                        textStyle: {
+                            color: '#9ea7c4',
+                            fontSize: 12
+                        }
+                    },
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: '#6173A3'
+                        }
+                    },
+                },
+                series: [{
+                    name: '',
+                    itemStyle: {
+                        normal: {
+                            color: function (params) {
+                                // build a color map as your need.
+                                var colorList = [
+                                    '#C1232B', '#B5C334', '#FCCE10', '#E87C25', '#27727B',
+                                    '#FE8463', '#9BCA63', '#FAD860', '#F3A43B', '#60C0DD',
+                                    '#D7504B', '#C6E579', '#F4E001', '#F0805A', '#26C0C0'
+                                ];
+                                return colorList[params.dataIndex]
+                            },
+                            shadowBlur: 20,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    },
+                    type: 'bar',
+                    data: countOption0_2
+                }, {
+                    type: 'pie',
+                    radius: [30, '80%'],
+                    center: ['75%', '50%'],
+                    roseType: 'radius',
+                    color: ['#C1232B', '#B5C334', '#FCCE10', '#E87C25', '#27727B',
+                        '#FE8463', '#9BCA63', '#FAD860', '#F3A43B', '#60C0DD',
+                        '#D7504B', '#C6E579', '#F4E001', '#F0805A', '#26C0C0'],
+                    data: [{
+                        value: 17,
+                        name: '后端'
+                    }, {
+                        value: 26,
+                        name: '前端'
+                    }, {
+                        value: 6,
+                        name: '大数据'
+                    }, {
+                        value: 6,
+                        name: '人工智能'
+                    }, {
+                        value: 2,
+                        name: '移动开发'
+                    }, {
+                        value: 42,
+                        name: '测试'
+                    }],
+                    label: {
+                        normal: {
+                            textStyle: {
+                                fontSize: 14
+                            },
+                            formatter: function (param) {
+                                return param.name + ':\n' + Math.round(param.percent) + '%';
+                            }
+                        }
+                    },
+                    labelLine: {
+                        normal: {
+                            smooth: true,
+                            lineStyle: {
+                                width: 2
+                            }
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            shadowBlur: 30,
+                            shadowColor: 'rgba(0, 0, 0, 0.4)'
+                        }
+                    },
+
+                    animationType: 'scale',
+                    animationEasing: 'elasticOut',
+                    animationDelay: function (idx) {
+                        return Math.random() * 200;
+                    }
+                }]
+            });
+        }
+
+        function echart_3() {
+            // 基于准备好的dom，初始化echarts实例
+            var myChart = echarts.init(document.getElementById('chart_3'));
+
+            option = {
+                // backgroundColor: "#404A59",
+                color: ["#036BC8", "#5EBEFC", "#2EF7F3"],
+
+                title: [{
+                    text: '',
+                    left: '1%',
+                    top: '6%',
+                    textStyle: {
+                        color: '#fff'
+                    }
+                }, {
+                    text: '',
+                    left: '83%',
+                    top: '6%',
+                    textAlign: 'center',
+                    textStyle: {
+                        color: '#fff',
+                        fontSize: 16
+                    }
+                }],
+                tooltip: {
+                    trigger: 'axis'
+                },
+                legend: {
+                    x: 300,
+                    top: '7%',
+                    textStyle: {
+                        color: '#ffd285',
+                    },
+                    data: ['北京','上海']
+                },
+                grid: {
+                    left: '1%',
+                    right: '28%',
+                    top: '16%',
+                    bottom: '6%',
+                    containLabel: true
+                },
+                toolbox: {
+                    "show": false,
+                    feature: {
+                        saveAsImage: {}
+                    }
+                },
+                xAxis: {
+                    type: 'category',
+                    "axisLine": {
+                        lineStyle: {
+                            color: '#fff'
+                        }
+                    },
+                    "axisTick": {
+                        "show": false
+                    },
+                    axisLabel: {
+                        textStyle: {
+                            color: '#fff'
+                        }
+                    },
+                    boundaryGap: false,
+                    data: ['开发', '房地产', '市场', '人事', '销售', '金融']
+                },
+                yAxis: {
+                    "axisLine": {
+                        lineStyle: {
+                            color: '#fff'
+                        }
+                    },
+                    splitLine: {
+                        show: false,
+                        lineStyle: {
+                            color: '#fff'
+                        }
+                    },
+                    "axisTick": {
+                        "show": false
+                    },
+                    axisLabel: {
+                        textStyle: {
+                            color: '#fff'
+                        }
+                    },
+                    type: 'value'
+                },
+                series: [{
+                    name: '北京',
+                    smooth: true,
+                    type: 'line',
+                    symbolSize: 9,
+                    symbol: 'circle',
+                    data: countOption0_3
+                }, {
+                    name: '上海',
+                    smooth: true,
+                    type: 'line',
+                    symbolSize: 9,
+                    symbol: 'circle',
+                    data: countOption0_4
+                },
+            ]
+            }
+
+            // 使用刚指定的配置项和数据显示图表。
+            myChart.setOption(option);
+            window.addEventListener("resize", function () {
+                myChart.resize();
+            });
+        }
+
+        function echart_4() {
+            // 基于准备好的dom，初始化echarts实例
+            var myChart = echarts.init(document.getElementById('chart_4'));
+
+            option = {
+                // backgroundColor: "#404A59",
+                color: ["#036BC8", "#5EBEFC", "#2EF7F3"],
+
+                title: [{
+                    text: '',
+                    left: '1%',
+                    top: '6%',
+                    textStyle: {
+                        color: '#fff'
+                    }
+                }, {
+                    text: '',
+                    left: '83%',
+                    top: '6%',
+                    textAlign: 'center',
+                    textStyle: {
+                        color: '#fff',
+                        fontSize: 16
+                    }
+                }],
+                tooltip: {
+                    trigger: 'axis'
+                },
+                legend: {
+                    x: 300,
+                    top: '7%',
+                    textStyle: {
+                        color: '#ffd285',
+                    },
+                    data: ['杭州', '西安', '成都', '武汉']
+                },
+                grid: {
+                    left: '1%',
+                    right: '28%',
+                    top: '16%',
+                    bottom: '6%',
+                    containLabel: true
+                },
+                toolbox: {
+                    "show": false,
+                    feature: {
+                        saveAsImage: {}
+                    }
+                },
+                xAxis: {
+                    data: ['开发', '房地产', '市场', '人事', '销售', '金融'],
+                    type: 'category',
+                    "axisLine": {
+                        lineStyle: {
+                            color: '#fff'
+                        }
+                    },
+                    "axisTick": {
+                        "show": false
+                    },
+                    axisLabel: {
+                        textStyle: {
+                            color: '#fff'
+                        }
+                    },
+                    boundaryGap: false,
+                },
+                yAxis: {
+                    "axisLine": {
+                        lineStyle: {
+                            color: '#fff'
+                        }
+                    },
+                    splitLine: {
+                        show: false,
+                        lineStyle: {
+                            color: '#fff'
+                        }
+                    },
+                    "axisTick": {
+                        "show": false
+                    },
+                    axisLabel: {
+                        textStyle: {
+                            color: '#fff'
+                        }
+                    },
+                    type: 'value'
+                },
+                series: [{
+                    name: '杭州',
+                    smooth: true,
+                    type: 'line',
+                    symbolSize: 9,
+                    symbol: 'circle',
+                    data: countOption0_5
+                }, {
+                    name: '西安',
+                    smooth: true,
+                    type: 'line',
+                    symbolSize: 9,
+                    symbol: 'circle',
+                    data: countOption0_6
+                },
+                    {
+                        name: '成都',
+                        smooth: true,
+                        type: 'line',
+                        symbolSize: 9,
+                        symbol: 'circle',
+                        data: countOption0_7
+                    },
+                    {
+                        name: '武汉',
+                        smooth: true,
+                        type: 'line',
+                        symbolSize: 9,
+                        symbol: 'circle',
+                        data: countOption0_8
+                    },
+                ],
+            }
+
+            // 使用刚指定的配置项和数据显示图表。
+            myChart.setOption(option);
+            window.addEventListener("resize", function () {
+                myChart.resize();
+            });
+        }
+
+    })
+
+</script>
+<div class="t_container">
+    <header class="t_h_bg">
+        <span>招聘信息</span>
+    </header>
+    <main class="t_main">
+        <div class="t_box">
+            <header class="t_title">
+                <span>编程语言岗位</span>
+            </header>
+            <div id="chart_1" class="echart" style="width: 100%; height: 3rem;"></div>
+        </div>
+        <div class="t_box">
+            <header class="t_title">
+                <span>技术类岗位</span>
+            </header>
+            <div id="chart_2" class="echart" style="width: 100%; height: 3rem;"></div>
+        </div>
+        <div class="t_box">
+            <header class="t_title">
+                <span>一线城市就业走势</span>
+            </header>
+            <div id="chart_3" class="echart" style="width: 100%; height: 3rem;"></div>
+        </div>
+        <div class="t_box">
+            <header class="t_title">
+                <span>新一线就业走势</span>
+            </header>
+            <div id="chart_4" class="echart" style="width: 100%; height: 3rem;"></div>
+        </div>
+    </main>
+</div>
+</body>
+</html>
